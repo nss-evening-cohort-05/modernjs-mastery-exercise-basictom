@@ -2,7 +2,7 @@ $(document).ready(function(){
 
   $(".btn").click((event) => {
      console.log($(event.currentTarget));
-     $(".body-image").hide("fast");
+    //  $(".body-image").hide("fast");
      writeDom();
    });
 
@@ -45,14 +45,20 @@ $(document).ready(function(){
       results.forEach((xhrResult) => {
         superHeros.push(xhrResult);
       });
-      // console.log("super wo;gihwerih", superHeros[2].teams);
-      // console.log("super wo;gihwerih", superHeros[0].characters);
       let characters = superHeros[0].characters;
-      console.log(characters);
-      let genders = superHeros[1].genders;
-      let teams = superHeros[2].teams;
+      let teams = superHeros[1].teams;
+      let gender = superHeros[2].genders;
+      console.log(characters, teams, gender);
+      for(let i=0;i<characters.length;i++){
+        for(let k=0;k<teams.length;i++){
+          if(checkIdMatch(characters[i].team_id, teams[i].id)) {
+            characters[i].matches.push(superHeros[i]);
+          }
+        }
 
-      // for(let i=0;)
+      }
+
+      //  && checkGendId(superHeros[i].characters[i], superHeros[i].genders[i])
 
     });
 
@@ -71,8 +77,8 @@ $(document).ready(function(){
   // .catch((humanError) => console.log(humanError));
   }
   const checkIdMatch = (hero, team) => {
-    const charId = characters["team_id"];
-    const teamId = charId.indexOf(team.id);
+    const charId = hero["team_id"];
+    const teamId = charId.indexOf(teams.id);
     if (teamID === -1){
       return false;
     }else{
@@ -81,8 +87,8 @@ $(document).ready(function(){
   }
 
   const checkGendId = (hero, gend) => {
-    const charId = characters["gender_id"];
-    const gendId = charId.indexOf(genders.type);
+    const charId = hero["gender_id"];
+    const gendId = charId.indexOf(gend.type);
     if (gendId === -1){
       return false;
     }else{
@@ -91,18 +97,8 @@ $(document).ready(function(){
   }
   const writeDom = () => {
     dataGetter();
+    $(".cards").html(superHeros);
     console.log("super", superHeros);
-    let domString = "";
-    console.log("domstring", domString);
-    for(var i=0;i<superHeros.length;i++){
-      console.log(superHeros[i]);
-      // domString += `<div class="col-md-6>"`;
-      // domString += `<div class="superhero">`;
-      // domString += `<p>${superHeros[i].characters[i].name}</p>`;
-      // domString += `</div></div>`;
-    }
-    $(".cards").append(domString);
-    console.log("domstring", domString);
   }
 
 
