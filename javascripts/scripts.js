@@ -37,49 +37,13 @@ $(document).ready(function(){
     });
   };
 
-  const dataGetter = () => {
-
-    Promise.all([loadChar(), loadTeams(), loadGend()])
-    .then((results) => {
-      // console.log(results);
-      results.forEach((xhrResult) => {
-        superHeros.push(xhrResult);
-      });
-      let characters = superHeros[0].characters;
-      let teams = superHeros[1].teams;
-      let gender = superHeros[2].genders;
-      console.log(characters, teams, gender);
-      for(let i=0;i<characters.length;i++){
-        for(let k=0;k<teams.length;i++){
-          if(checkIdMatch(characters[i].team_id, teams[i].id)) {
-            characters[i].matches.push(superHeros[i]);
-          }
-        }
-
-      }
-
-      //  && checkGendId(superHeros[i].characters[i], superHeros[i].genders[i])
-
-    });
-
-      // for (let i = 0; i < myHumans.length; i++) {
-      //   for (let j = 0; j < myAnimals.length; j++) {
-      //     if (checkForTypeMatch(myHumans[i], myAnimals[j]) && checkForKidFriendly(myHumans[i], myAnimals[j])) {
-      //       myHumans[i].matches.push(myAnimals[j]);
-      //     }
-      //   }
-      // }
-
-      // writeToDOM(myHumans);
-  //   })
-  //   .catch((animalErrors) => console.log(animalErrors));
-  // })
-  // .catch((humanError) => console.log(humanError));
-  }
   const checkIdMatch = (hero, team) => {
-    const charId = hero["team_id"];
-    const teamId = charId.indexOf(teams.id);
-    if (teamID === -1){
+    console.log(hero);
+    const heroArray = hero["id"];
+    console.log(heroArray);
+    console.log(team.id);
+    const teamId = heroArray.indexOf(team.id);
+    if (teamId === -1){
       return false;
     }else{
       return true;
@@ -102,6 +66,51 @@ $(document).ready(function(){
   }
 
 
+
+
+    Promise.all([loadChar(), loadTeams(), loadGend()])
+    .then((results) => {
+      // console.log(results);
+      results.forEach((xhrResult) => {
+        superHeros.push(xhrResult);
+      });
+      console.log(superHeros);
+      let characters = superHeros[0].characters;
+      console.log("character array", characters);
+      let teams = superHeros[1].teams;
+      console.log("teams array", teams);
+      // let gender = superHeros[2].genders;
+
+      for(let i=0;i<characters.length;i++){
+        console.log("hello loop", characters[i]);
+        for(let k=0;k<teams.length;k++){
+          console.log("hello loop", teams[k]);
+          if(checkIdMatch(characters[i].team_id, teams[k].id)) {
+            console.log("hitting if statement");
+            superHeros[i].matches.push(superHeros[i]);
+            console.log(superHeros[i]);
+          }
+        }
+
+      }
+
+      //  && checkGendId(superHeros[i].characters[i], superHeros[i].genders[i])
+
+    });
+
+      // for (let i = 0; i < myHumans.length; i++) {
+      //   for (let j = 0; j < myAnimals.length; j++) {
+      //     if (checkForTypeMatch(myHumans[i], myAnimals[j]) && checkForKidFriendly(myHumans[i], myAnimals[j])) {
+      //       myHumans[i].matches.push(myAnimals[j]);
+      //     }
+      //   }
+      // }
+
+      // writeToDOM(myHumans);
+  //   })
+  //   .catch((animalErrors) => console.log(animalErrors));
+  // })
+  // .catch((humanError) => console.log(humanError));
 
 
 
