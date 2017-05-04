@@ -5,3 +5,13 @@ body {
   /*margin: 0 auto;*/
   text-align:center;
 }
+section img {
+  border-radius: 50%;
+}
+.hero-container {
+  background-color: #8db14e;
+  margin: 10px;
+  padding: 10px;
+  border-top: 25px solid darkolivegreen;
+  border-radius: 5px;
+}
