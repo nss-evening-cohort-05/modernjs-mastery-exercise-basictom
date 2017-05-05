@@ -1,9 +1,20 @@
 $(document).ready(function(){
 
-  $(".btn").click((event) => {
+  $('#xmen').click(() => {
     $(".body-image").hide("slow");
-    dataGetter();
-   });
+    let xmen = 0;
+    dataGetter(xmen);
+  });
+  $('#avengers').click(() => {
+    $(".body-image").hide("slow");
+    let avengers = 1;
+    dataGetter(avengers);
+  });
+  $('#gaurdians').click(() => {
+    $(".body-image").hide("slow");
+    let gaurdians = 2;
+    dataGetter(gaurdians);
+  });
 
 // PROMISES ==========================
 
@@ -40,21 +51,27 @@ $(document).ready(function(){
     });
   };
 
-  const writeDom = (char) => {
-    // $(".cards").html(char);
-    console.log("super", char);
+  const writeDom = (char, team) => {
     let dom = "";
+    console.log(team);
+    console.log(char);
     for(i=0;i<char.length;i++){
-      dom += `<div class="col-xs-4 hero-container">`;
-      dom += `<h3>${char[i].name}</h3>`;
-      dom += `<section><img class="hero-image" src="${char[i].image}"></section>`;
-      dom += `<p class="text-left">${char[i].description}</p>`;
-      dom += `</div>`;
+      console.log(team);
+      if(team === char[i].team_id){
+        dom += `<div class="col-xs-4 hero-container">`;
+        dom += `<h3>${char[i].name}</h3>`;
+        dom += `<section><img class="hero-image" src="${char[i].image}"></section>`;
+        dom += `<p class="text-left">${char[i].description}</p>`;
+        dom += `</div>`;
+      }else{
+        console.log("nothing");
+      }
     }
     $('.cards').html(dom);
   }
 
-    let dataGetter = () => {Promise.all([loadChar(), loadTeams(), loadGend()])
+
+    let dataGetter = (c) => {Promise.all([loadChar(), loadTeams(), loadGend()])
     .then((results) => {
       results.forEach((xhrResult) => {
         superHeros.push(xhrResult);
@@ -73,9 +90,25 @@ $(document).ready(function(){
             alert("hey bone head");
           }
         }
-        // console.log("char after looping", characters);
       }
-      writeDom(characters);
+
+      writeDom(characters, c);
+      // console.log("datagetter c", c);
+
+      // if(c === "xmen"){
+      //   // console.log("hitting xmen", c);
+      //   // console.log(characters);
+      //   writeDom(characters);
+      //   // let xmen = characters[0].team_id;
+      //   console.log(xmen);
+      // }else if(c === "avengers"){
+      //   console.log("hitting avengers", c);
+      // }else{
+      //   console.log("hitting gaurdians", c);
+      // }
+      // writeXmen(characters);
+      // writeAvengers(characters);
+      // writeGaurd(characters);
     }).catch((error) => {
       alert("Your promise is failing", error);
     });
