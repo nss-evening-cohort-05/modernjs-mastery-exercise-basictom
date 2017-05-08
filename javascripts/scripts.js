@@ -57,16 +57,17 @@ $(document).ready(function(){
         if(i%3===0){
           dom += `<div class="row">`;
         }
-        dom += `<div class="col-xs-4 hero-container text-center">`;
+        dom += `<div class="col-xs-3 text-center">`;
+        dom += `<div class="hero-container">`;
         dom += `<h3>${char[i].name}</h3>`;
-        dom += `<section><img class="hero-image hero-${char[i].gender_id}" id="" src="${char[i].image}"></section>`;
+        dom += `<section><img class="hero-image hero-${char[i].gender_id}" src="${char[i].image}"></section>`;
         dom += `<p class="text-left">${char[i].description}</p>`;
         dom += `</div>`;
-      }
-      if(i%3===2){
         dom += `</div>`;
+        if(i%3===2){
+          dom += `</div>`;
+        }
       }
-
     }
     $('.cards').html(dom);
   }
