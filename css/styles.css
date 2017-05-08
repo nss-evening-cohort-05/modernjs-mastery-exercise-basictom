@@ -1,0 +1,32 @@
+body {
+  background-color: powderblue;
+}
+.body-image {
+  /*margin: 0 auto;*/
+  text-align:center;
+}
+.btn:focus {
+  background-color: tomato;
+}
+section img {
+  border-radius: 50%;
+}
+.hero-container {
+  background-color: #8db14e;
+  /*margin: 10px;*/
+  padding: 10px;
+  border-top: 25px solid darkolivegreen;
+  border-radius: 5px;
+}
+.hero-container img {
+  width: 75%;
+}
+.text-center {
+  padding: 10px;
+}
+.pink-border {
+  border: 8px solid pink;
+}
+.blue-border {
+  border: 8px solid blue;
+}
