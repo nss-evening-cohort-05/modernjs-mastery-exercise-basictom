@@ -5,6 +5,9 @@ body {
   /*margin: 0 auto;*/
   text-align:center;
 }
+.btn:focus {
+  background-color: tomato;
+}
 section img {
   border-radius: 50%;
 }
