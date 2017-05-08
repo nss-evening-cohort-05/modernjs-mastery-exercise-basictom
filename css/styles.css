@@ -15,3 +15,9 @@ section img {
   border-top: 25px solid darkolivegreen;
   border-radius: 5px;
 }
+.pink-border {
+  border: 13px solid pink;
+}
+.blue-border {
+  border: 13px solid blue;
+}

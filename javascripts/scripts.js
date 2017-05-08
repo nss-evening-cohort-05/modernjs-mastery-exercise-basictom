@@ -16,8 +16,6 @@ $(document).ready(function(){
     dataGetter(gaurdians);
   });
 
-// PROMISES ==========================
-
   let superHeros = [];
 
   // Loading all three json files
@@ -52,22 +50,38 @@ $(document).ready(function(){
   };
 
   const writeDom = (char, team) => {
-    let dom = "";
-    console.log(team);
     console.log(char);
+    let dom = "";
     for(i=0;i<char.length;i++){
-      console.log(team);
       if(team === char[i].team_id){
-        dom += `<div class="col-xs-4 hero-container">`;
+        if(i%3===0){
+          dom += `<div class="row">`;
+        }
+        dom += `<div class="col-xs-4 hero-container text-center">`;
         dom += `<h3>${char[i].name}</h3>`;
-        dom += `<section><img class="hero-image" src="${char[i].image}"></section>`;
+        dom += `<section><img class="hero-image hero-${char[i].gender_id}" id="" src="${char[i].image}"></section>`;
         dom += `<p class="text-left">${char[i].description}</p>`;
         dom += `</div>`;
-      }else{
-        console.log("nothing");
       }
+      if(i%3===2){
+        dom += `</div>`;
+      }
+
     }
     $('.cards').html(dom);
+  }
+
+  let genderMatch = (char) => {
+    // console.log(char[0].gender_id);
+    for(x=0;x<char.length;x++){
+      if(char[x].gender_id === 0){
+        // console.log("females",);
+        $('.hero-0').addClass('pink-border');
+      }else{
+        // console.log("males", char[x].gender_id === 1);
+        $('.hero-1').addClass('blue-border');
+      }
+    }
   }
 
 
@@ -76,41 +90,37 @@ $(document).ready(function(){
       results.forEach((xhrResult) => {
         superHeros.push(xhrResult);
       });
-      console.log(results)
       let characters = superHeros[0];
       let teams = superHeros[1];
       let gender = superHeros[2];
 
       for(let i=0;i<characters.length;i++){
         for(let k=0;k<teams.length;k++){
-          if((characters.id === teams.id)) {
-            characters.team_id == teams.name;
-            // console.log(characters);
-          }else{
-            alert("hey bone head");
+          for(let t=0;t<gender.length;t++){
+            if(characters[i].team_id === teams[k].id) {
+              characters[i].team = teams[k].name;
+            }
+
+            if(characters[i].gender_id === gender[t].id){
+              characters[i].gender = gender[t].type;
+            }
+
+            if(characters[i].description.length < 1){
+              if(characters[i].gender === 'Male'){
+                characters[i].description = "1234567890";
+                // $('.hero-image').addClass('blue-border');
+              }else{
+                characters[i].description = "abcdef ghijklm nop qrstu vwxyz";
+              }
+            }
           }
         }
+
       }
-
       writeDom(characters, c);
-      // console.log("datagetter c", c);
-
-      // if(c === "xmen"){
-      //   // console.log("hitting xmen", c);
-      //   // console.log(characters);
-      //   writeDom(characters);
-      //   // let xmen = characters[0].team_id;
-      //   console.log(xmen);
-      // }else if(c === "avengers"){
-      //   console.log("hitting avengers", c);
-      // }else{
-      //   console.log("hitting gaurdians", c);
-      // }
-      // writeXmen(characters);
-      // writeAvengers(characters);
-      // writeGaurd(characters);
+      genderMatch(characters);
     }).catch((error) => {
-      alert("Your promise is failing", error);
+      console.log("Your promise is failing", error);
     });
   };
 
